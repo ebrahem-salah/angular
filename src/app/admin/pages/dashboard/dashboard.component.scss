@@ -1,0 +1,34 @@
+@import "../../../admin/pages/home/home.component.scss";
+
+.d-item {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  color: var(--surface-0);
+  justify-content: space-between;
+
+  .pi {
+    font-size: 4em;
+    /* // margin-bottom: 15px; */
+    margin-left: 5px;
+  }
+  .name {
+    font-size: 2em;
+  }
+  .number {
+    font-size: 3em;
+    margin-right: 5px;
+  }
+}
+.d-orders {
+  background-image: linear-gradient(62deg, #fbab7e 0%, #f768cc 100%);
+}
+.d-products {
+  background-image: linear-gradient(62deg, #fbab7e 0%, #9368f7 100%);
+}
+.d-users {
+  background-image: linear-gradient(62deg, #50941c 0%, #f7ce68 100%);
+}
+.d-totals {
+  background-image: linear-gradient(62deg, #df5126 0%, #0a7c80 100%);
+}

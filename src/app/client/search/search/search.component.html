@@ -1,0 +1,31 @@
+<div class="flex flex-wrap align-items-center gap-3">
+  <div
+    class="search-bar-container"
+    cdkOverlayOrigin
+    #overlayPosition="cdkOverlayOrigin"
+    [ngClass]="{ 'opened mat-elevation-z2 ': overlayOpen() }"
+  >
+    <span class="p-input-icon-right">
+      <i class="pi pi-search"></i>
+      <input
+        #searchTerm
+        class="input"
+        type="text"
+        placeholder="Search"
+        (input)="onSearch(searchTerm.value)"
+      />
+    </span>
+  </div>
+  <ng-template
+    pTemplate="center"
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="overlayPosition"
+    [cdkConnectedOverlayOpen]="overlayOpen()"
+    (overlayOutsideClick)="overlayOpen.set(false)"
+  >
+    <app-search-result-item [message]="message()"></app-search-result-item>
+  </ng-template>
+
+  <a class="font-bold text-bluegray-50" routerLink="/admin">Admin</a>
+  <a class="font-bold text-bluegray-50" routerLink="/products">Products</a>
+</div>

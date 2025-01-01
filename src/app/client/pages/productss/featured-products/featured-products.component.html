@@ -1,0 +1,10 @@
+<div class="featured">
+  <h2>Featured Products</h2>
+  <div class="grid">
+    @for (item of featureProducts(); track item._id) {
+    <div class="col">
+      <app-products-item [product]="item" />
+    </div>
+    }
+  </div>
+</div>

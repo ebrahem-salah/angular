@@ -1,0 +1,13 @@
+<h4 routerLink="/cart">
+  <i
+    class="pi pi-shopping-cart p-text-secondary"
+    style="font-size: 1.5rem"
+    pBadge
+    [value]="cartCount()"
+  >
+  </i>
+  My Cart
+  <br />
+
+  {{ cartPrice() | currency : "EGP" }}
+</h4>

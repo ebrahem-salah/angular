@@ -1,0 +1,89 @@
+<p-toast position="top-center" />
+<div class="admin-page">
+  <p-card
+    [header]="editMode() ? 'Edit Category' : 'Create Category'"
+    subheader="You can add or edit categories here "
+  >
+    <div class="p-grid mb-4">
+      <div class="p-col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-right"></div>
+          <div class="p-toolbar-group-left">
+            <p-button
+              styleClass="p-button-primary mr-2"
+              [label]="editMode() ? 'Update' : 'Create'"
+              icon="pi pi-plus"
+              (onClick)="onSubmit()"
+            ></p-button>
+
+            <p-button
+              styleClass="p-button-secondary mr-2"
+              label="Cancel"
+              icon="pi pi-arrow-circle-left"
+              routerLink="/admin/categories"
+            ></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="col-12">
+        <form
+          class="example-form needs-validation"
+          isSubmatted
+          [formGroup]="form"
+        >
+          <div class="row">
+            <div class="col-6">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Name"
+                name="name"
+                formControlName="name"
+                required
+              />
+              <p
+                class="p-error"
+                *ngIf="isSubmatted && categoryControl.name.invalid"
+              >
+                Name is required
+              </p>
+            </div>
+            <div class="col-6">
+              <input
+                type="file"
+                class="form-control"
+                id="image"
+                (change)="onFileSelected($event)"
+              />
+              <!-- <img [src]="imageDisplay" alt=""> -->
+
+              <small
+                class="p-error"
+                *ngIf="isSubmatted && categoryControl.image.invalid"
+                >Image is required</small
+              >
+            </div>
+            <div class="col-4">
+
+              @if (imageDisplay()) {
+                <div >
+                  <label for="imageCover" class="form-label"> imageCover </label>
+                  <img
+                  width="100%"
+                  height="200px"
+                  class="shadow-4"
+                  [src]="imageDisplay()"
+                  alt="Image Cover"
+                  />
+                </div>
+              }
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </p-card>
+</div>

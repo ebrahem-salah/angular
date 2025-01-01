@@ -1,0 +1,258 @@
+<p-toast position="top-center" />
+<div class="admin-page">
+  <p-card
+    [header]="editMode() ? 'Edit Product' : 'Create Product'"
+    subheader="You can add or edit product here "
+  >
+    <div class="p-grid mb-4">
+      <div class="p-col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-right"></div>
+          <div class="p-toolbar-group-left">
+            <p-button
+              styleClass="p-button-primary mr-2"
+              [label]="editMode() ? 'Update' : 'Create'"
+              icon="pi pi-plus"
+              (onClick)="onSubmit()"
+            ></p-button>
+
+            <p-button
+              styleClass="p-button-secondary mr-2"
+              label="Cancel"
+              icon="pi pi-arrow-circle-left"
+              routerLink="/admin/products"
+            ></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+
+    <div>
+      <form
+        class="row justify-content-center align-items-center g-2"
+        isSubmatted
+        [formGroup]="form"
+      >
+        <div class="col-4">
+          <label for="title" class="form-label">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Title"
+            name="title"
+            formControlName="title"
+            required
+          />
+          <p class="p-error" *ngIf="isSubmatted && Control.title.invalid">
+            Name is required
+          </p>
+        </div>
+
+        <div class="col-4">
+          <label for="brand" class="form-label">Brands</label><br />
+          <select class="form-control" name="brand" formControlName="brand">
+            <option value="">Select a Brand</option>
+
+            @for (item of brands(); track item._id) {
+            <option [value]="item._id">
+              {{ item.name }}
+            </option>
+            }
+          </select>
+          <small class="p-error" *ngIf="isSubmatted && Control.brand.invalid">
+            Brand is required
+          </small>
+        </div>
+
+        <div class="col-4">
+          <label for="exampleColorInput" class="form-label">Color</label>
+          <input
+            type="color"
+            class="form-control"
+            id="colors"
+            formControlName="colors"
+            title="Choose your color"
+          />
+          <p class="p-error" *ngIf="isSubmatted && Control.colors.invalid">
+            Color is required
+          </p>
+        </div>
+
+        <div class="col-4">
+          <label for="price" class="form-label">Price</label><br />
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Price"
+            name="price"
+            formControlName="price"
+            required
+          />
+
+          <small class="p-error" *ngIf="isSubmatted && Control.price.invalid"
+            >Price is required</small
+          >
+        </div>
+
+        <div class="col-4">
+          <label for="quantity" class="form-label">Quantity</label><br />
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Quantity"
+            name="quantity"
+            formControlName="quantity"
+            required
+          />
+
+          <small class="p-error" *ngIf="isSubmatted && Control.quantity.invalid"
+            >Quantity is required</small
+          >
+        </div>
+
+        <!-- <div class="col-4">
+          <label for="category" class="form-label">Category</label><br />
+          <select
+            class="form-control"
+            name="category"
+            formControlName="category"
+          >
+            <option value="">Select a Category</option>
+
+            @for (item of category(); track item._id) {
+            <option [value]="item._id">
+              {{ item.name }}
+            </option>
+            }
+          </select>
+          <small class="p-error" *ngIf="isSubmatted && Control.category.invalid"
+            >Category is required</small
+          >
+        </div> -->
+
+        <div class="col-4">
+          <label for="category" class="form-label">Category</label><br />
+          <mat-select
+            class="form-control"
+            formControlName="category"
+            (selectionChange)="onCategoryChange($event.value)"
+            placeholder="Select a Category"
+          >
+            @for (item of category(); track item._id) {
+
+            <mat-option [value]="item._id">{{ item.name }}</mat-option>
+            }
+          </mat-select>
+          <small class="p-error" *ngIf="isSubmatted && Control.category.invalid"
+            >Category is required</small
+          >
+        </div>
+
+        <div class="col-4">
+          <label for="subcategory" class="form-label">SubCategory</label><br />
+          <select
+            class="form-control"
+            name="subcategory"
+            formControlName="subcategory"
+          >
+            <option value="">Select a SubCategory</option>
+
+            @for (item of subCategory(); track item._id) {
+            <option [value]="item._id">
+              {{ item.name }}
+            </option>
+            }
+          </select>
+          <small
+            class="p-error"
+            *ngIf="isSubmatted && Control.subcategory.invalid"
+            >SubCategory is required</small
+          >
+        </div>
+
+        <div class="col-4">
+          <label for="formFile" class="form-label">Image cover</label>
+          <input
+            class="form-control"
+            type="file"
+            name="imageCover"
+            accept="image/*"
+            (change)="onFileSelected($event)"
+          />
+          <p class="p-error" *ngIf="isSubmatted && Control.imageCover.invalid">
+            Image cover is required
+          </p>
+        </div>
+        <div class="col-4">
+          <label for="formFile" class="form-label">Images</label>
+          <input
+            class="form-control"
+            type="file"
+            name="images"
+            accept="image/*"
+            formControlName="images"
+            (change)="onFilesSelected($event)"
+            multiple
+          />
+          <p class="p-error" *ngIf="isSubmatted && Control.images.invalid">
+            Images is required
+          </p>
+        </div>
+
+        <!-- <div class="col-4">
+          <label for="category" class="form-label">Sub category</label><br />
+          <select
+            class="form-control"
+            name="subcategory"
+            id=""
+            formControlName="subcategory"
+          ></select>
+          <small
+            class="p-error"
+            *ngIf="isSubmatted && Control.subcategory.invalid"
+            >Sub category is required</small
+          >
+        </div> -->
+
+        <div class="col-12">
+          <label for="description" class="form-label"> Description </label>
+          <textarea
+            formControlName="description"
+            class="form-control"
+            id="description"
+            rows="3"
+          ></textarea>
+          <small
+            class="p-error"
+            *ngIf="isSubmatted && Control.description.invalid"
+            >Description is required</small
+          >
+        </div>
+        @if (imageDisplay()) {
+        <div class="col-4">
+          <label for="imageCover" class="form-label"> imageCover </label>
+          <img
+            width="100%"
+            height="200px"
+            class="shadow-4"
+            [src]="imageDisplay()"
+            alt="Image Cover"
+          />
+        </div>
+        } @if (imagesDisplay()) { @for (item of imagesDisplay(); track $index) {
+
+        <div class="col-4">
+          <label for="Images" class="form-label"> Images </label>
+          <img
+            width="100%"
+            height="200px"
+            class="shadow-4"
+            [src]="item"
+            [alt]="item"
+          />
+        </div>
+        } }
+      </form>
+    </div>
+  </p-card>
+</div>

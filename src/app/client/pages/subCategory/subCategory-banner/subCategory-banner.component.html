@@ -1,0 +1,76 @@
+<div class="banner">
+  <h3>Categories</h3>
+  <div class="grid">
+    @for (item of categories; track item._id) {
+    <div class="col">
+      <div class="category" [routerLink]="['/category/' + item._id]">
+        <div class="img">
+          <img class="imges" [src]="item.image" alt="Category Logo" />
+        </div>
+        <div class="name">{{ item.name }}</div>
+      </div>
+    </div>
+    } @for (item of subCategory(); track item._id) {
+    <div class="col">
+      <div class="category" [routerLink]="['/category/' + item._id]">
+        <div class="img"></div>
+        <div class="name">{{ item.name }}</div>
+      </div>
+    </div>
+    }
+  </div>
+</div>
+
+<div class="card flex justify-content-center">
+  <div class="btn-group">
+    <button
+      type="button"
+      class="btn btn-primary dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      All Categories
+    </button>
+    <ul class="dropdown-menu">
+      <li>
+        @for (item of categories; track item._id) {
+
+        <a class="dropdown-item" [routerLink]="['/category/' + item._id]">{{
+          item.name
+        }}</a>
+
+        }
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="filter-group">
+  <mat-form-field appearance="fill">
+    <mat-label>Category</mat-label>
+    <mat-select>
+      @for (item of categories; track item._id) {
+      <mat-option [value]="item">
+        <a class="dropdown-item" [routerLink]="['/category/' + item._id]">{{
+          item.name
+        }}</a>
+      </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="col-4">
+  <label for="category" class="form-label">Category</label><br />
+  <mat-select
+    class="form-control"
+    formControlName="category"
+    (selectionChange)="onCategoryChange($event.value)"
+    placeholder="Select a Category"
+  >
+    @for (item of category(); track item._id) {
+
+    <mat-option [value]="item._id">{{ item.name }}</mat-option>
+    }
+  </mat-select>
+</div>

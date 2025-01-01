@@ -1,0 +1,140 @@
+<!-- @if (!products()) {
+
+<div class="justify-content-center">
+  <h1>No Search List Available</h1>
+</div>
+
+} @else {
+
+<div>
+  <header *ngIf="products().length > 0">
+    <h3>Search Result list</h3>
+  </header>
+  <div class="prodcuts-page">
+    <div class="grid">
+      <div class="col-4">search</div>
+
+      <div class="col-8">
+        <div class="grid">
+          @for (item of products(); track item._id) {
+          <div class="col">
+            <app-products-item [product]="item" />
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+} -->
+@if (!products().length) {
+
+<div class="justify-content-center">
+  <h1>No Search List Available</h1>
+</div>
+
+} @else {
+<div class="card">
+  <div class="col-4">
+    <h1>hema</h1>
+  </div>
+
+  <p-dataView
+    #dv
+    [value]="products()"
+    [sortField]="sortField"
+    [sortOrder]="sortOrder"
+  >
+    <ng-template pTemplate="header">
+      <div class="flex flex-column md:flex-row md:justify-content-between">
+        <p-dropdown
+          [options]="sortOptions"
+          [(ngModel)]="sortKey"
+          placeholder="Sort By Price"
+          (onChange)="onSortChange($event)"
+          styleClass="mb-2 md:mb-0"
+        />
+      </div>
+      <div *ngIf="dv.value?.length">Item:{{ dv.value?.length }}</div>
+    </ng-template>
+        <ng-template pTemplate="list" gridItem>
+
+    @for (item of products(); track item._id) {
+    <div class="col">
+      <app-products-item [product]="item" />
+    </div>
+    }
+
+    <!-- <ng-template pTemplate="list" gridItem>
+      <div class="grid grid-nogutter">
+        @for (product of products(); track product._id) {
+        <div>
+          <div class="col-12 sm:col-6 md:col-4 xl:col-6 p-2">
+            <div
+              class="p-4 border-1 surface-border surface-card border-round flex flex-column"
+            >
+              <div
+                class="surface-50 flex justify-content-center border-round p-3"
+              >
+                <div class="relative mx-auto">
+                  <img
+                    class="border-round w-full"
+                    [src]="product.imageCover"
+                    [alt]="product.title"
+                    style="max-width: 300px"
+                  />
+                </div>
+              </div>
+              <div class="pt-4">
+                <div
+                  class="flex flex-row justify-content-between align-items-start gap-2"
+                >
+                  <div>
+                    <span class="font-medium text-secondary text-sm">{{
+                      product.category.name
+                    }}</span>
+                    <div class="text-lg font-medium text-900 mt-1">
+                      {{ product.title }}
+                    </div>
+                  </div>
+                  <div class="surface-100 p-1" style="border-radius: 30px">
+                    <div
+                      class="surface-0 flex align-items-center gap-2 justify-content-center py-1 px-2"
+                      style="
+                        border-radius: 30px;
+                        box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04),
+                          0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+                      "
+                    >
+                      <span class="text-900 font-medium text-sm">{{
+                        product.ratingsAverge
+                      }}</span>
+                      <i class="pi pi-star-fill text-yellow-500"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex flex-column gap-4 mt-4">
+                  <span class="text-2xl font-semibold">{{
+                    "EGP" + product.price
+                  }}</span>
+                  <div class="flex gap-2">
+                    <p-button
+                      icon="pi pi-shopping-cart"
+                      class="flex-auto md:flex-initial white-space-nowrap"
+                      label="Add to cart"
+                      [disabled]="product.quantity <= 0"
+                    />
+                    <p-button icon="pi pi-heart" [outlined]="true" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+      -->
+    </ng-template>
+  </p-dataView>
+</div>
+}

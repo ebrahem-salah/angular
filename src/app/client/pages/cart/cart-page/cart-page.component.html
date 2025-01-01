@@ -1,0 +1,99 @@
+<div class="cart-page">
+  <div class="flex justify-content-center">
+    @if (!cartItems().length) {
+    <h1 class="algin-item-center justify-content-center">
+      Your Cart is Empty.
+    </h1>
+
+    } @else {
+
+    <div>
+      <button class="btn btn-primary m-4" routerLink="/products">
+        Back To Shop
+      </button>
+
+      <div class="grid">
+        <div class="col-8">
+          <p-card header="My Cart ">
+            <div class="cart-item">
+              <p-table [value]="cartItems()">
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th>Item</th>
+                    <th></th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product let-columns>
+                  <tr>
+                    <td>
+                      <img
+                        [src]="product.product.imageCover"
+                        alt=""
+                        width="100px"
+                      />
+                    </td>
+                    <td width="500px">
+                      {{ product.name }}
+
+                      <a class="remove" (click)="removeItem(product._id)"
+                        ><i class="pi pi-trash"></i> Remove Item</a
+                      >
+                    </td>
+
+                    @if (product.availableQuantity <= 0) {
+                    <div class="alert alert-danger" role="alert">
+                      {{ product.name }} not avabile
+                    </div>
+                    }@else {
+                    {{
+                      product.price | currency : "EGP"
+                    }}
+                    <td></td>
+
+                    <td>
+                      <p-inputNumber
+                        ariaLabelledBy
+                        [(ngModel)]="product.quantity"
+                        [showButtons]="true"
+                        size="2"
+                        (onInput)="
+                          updateQuantity(product._id, product.quantity)
+                        "
+                        min="1"
+                        [max]="product.availableQuantity"
+                      />
+                    </td>
+                    <td>
+                      {{ product.price * product.quantity | currency : "EGP" }}
+                    </td>
+                    }
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </p-card>
+        </div>
+
+        <div class="col-4">
+          <p-card header="Order Summary">
+            <span class="border-top"></span>
+            <div class="cart-total">
+              <h3 class="mb-3">Subtotal: {{ totalPrice() | currency }}</h3>
+              <h3 class="mb-3">Shipping:</h3>
+              <h3 class="mb-3">
+                Order Total: {{ totalPriceAfterDisc() | currency }}
+              </h3>
+            </div>
+            <button type="button" (click)="navgiteToCheckOut(orderId() ?? '')">
+              Check Out
+            </button>
+          </p-card>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>

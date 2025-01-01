@@ -1,0 +1,131 @@
+<p-toast position="top-center" />
+<div class="admin-page">
+  <p-card header="Show Order" subheader="You can edit order status here ">
+    <p-card styleClass="mb-4">
+      <p-fieldset legend="Order Details" [toggleable]="true">
+        <div class="grid">
+          <div class="col-4">
+            <h5>OrderId</h5>
+            <p>
+              {{ orders?._id }}
+            </p>
+          </div>
+          <div class="col-4">
+            <h5>Order Status</h5>
+
+            <p-inputSwitch
+              [(ngModel)]="toPaid"
+              (onChange)="selectedStatusToPaid($event)"
+              [disabled]="orders?.paymentMethod === 'card'"
+            />
+
+            <P>Payment date:{{ orders?.paidAt | date : "d/M/yy" }} </P>
+          </div>
+          <div class="col-4">
+            <h5>Order Delivered</h5>
+            <p-inputSwitch
+              [(ngModel)]="toDelivered"
+              (onChange)="selectedStatusToDelivered($event)"
+            />
+            <P>Delivery date:{{ orders?.delivereAt | date : "d/M/yy" }} </P>
+          </div>
+
+          <div class="col-4">
+            <h5>Order Date Create</h5>
+            <p>{{ orders?.createdAt | date : "d/M/yy" }}</p>
+          </div>
+          <div class="col-4">
+            <h5>Order payment method</h5>
+            <p>{{ orders?.paymentMethod }}</p>
+          </div>
+
+          <div class="col-4">
+            <h5>Order Total Price</h5>
+            <p>{{ orders?.totalOrderPrice | currency : "EGP " }}</p>
+          </div>
+        </div>
+      </p-fieldset>
+    </p-card>
+    <p-card styleClass="mb-4">
+      <p-fieldset
+        legend="Order Items"
+        [toggleable]="true"
+        styleClass="text-align: right;"
+      >
+        <div class="grid">
+          <div class="col-3">
+            <h5 class="p-text-bold">Product</h5>
+          </div>
+          <div class="col-2">
+            <h5>color</h5>
+          </div>
+
+          <div class="col-2">
+            <h5>Quantity</h5>
+          </div>
+          <div class="col-2">
+            <h5>Price</h5>
+          </div>
+          <div class="col-3">
+            <h5>Subtotal</h5>
+          </div>
+        </div>
+
+        <div class="grid">
+          @for (item of orders?.cartItems; track item._id) {
+
+          <div class="col-3">
+            {{ item?.product?.title ?? "" }}
+          </div>
+
+          <div class="col-2">
+            {{ item?.color }}
+          </div>
+
+          <div class="col-2">
+            {{ item?.quantity | number }}
+          </div>
+
+          <div class="col-2">
+            {{ item?.price | currency : "EGP " }}
+          </div>
+          <div class="col-3">
+            {{ item.quantity * (item.price ?? 0) | currency : "EGP " }}
+          </div>
+          }
+        </div>
+        <div class="grid mt-5" style="color: green">
+          <div class="col-2 offset-7">
+            <h5>Order Total Price</h5>
+          </div>
+          <div class="col-3">
+            <h5>{{ orders?.totalOrderPrice | currency : " EGP" }}</h5>
+          </div>
+        </div>
+      </p-fieldset>
+    </p-card>
+    <p-card styleClass="mb-4">
+      <p-fieldset legend="Order Address" [toggleable]="true">
+        <div class="grid">
+          <div class="col-4">
+            <h5>Customer Address</h5>
+            @for (item of orders?.shippingAddress; track item) {
+            <p>{{ item.city }}</p>
+            <p>{{ item.phone }}</p>
+            <p>{{ item.street }}</p>
+            }
+          </div>
+          <div class="col-4">
+            <h5>Customer info</h5>
+            <p>{{ orders?.user?.name }}</p>
+            <p>{{ orders?.user?.email }}</p>
+          </div>
+          <div class="col-4">
+            <h5></h5>
+            <p></p>
+          </div>
+        </div>
+      </p-fieldset>
+    </p-card>
+  </p-card>
+</div>

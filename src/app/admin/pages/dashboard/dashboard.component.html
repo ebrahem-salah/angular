@@ -1,0 +1,87 @@
+<div class="admin-page mt-4 ml-2 mr-2">
+  <p-card
+    header="Dashboard"
+    subheader="Latest Updates"
+    class="m-4"
+    class="card"
+  >
+    <div class="row justify-content">
+      <div class="col">
+        <div class="card d-orders">
+          <div class="d-item">
+            <i class="pi pi-shopping-cart"></i> <br />
+            <span class="name">Orders</span>
+            <span class="number">{{ ordersCount() }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card d-products">
+          <div class="d-item">
+            <i class="pi pi-briefcase"></i> <br />
+            <span class="name">Products</span>
+            <span class="number">{{ productCount() }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card d-users">
+          <div class="d-item">
+            <i class="pi pi-users"></i> <br />
+            <span class="name">Users</span>
+            <span class="number"> {{ usersCount() }} </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card d-totals">
+          <div class="d-item">
+            <i class="pi pi-dollar"></i> <br />
+            <span class="name">TotalSales</span>
+            <span class="number">{{ totalOrderPrice() | currency }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card d-totals">
+          <div class="d-item">
+            <i class="pi pi-dollar"></i> <br />
+            <span class="name">Orders paid</span>
+            <span class="number">{{ totalOrderIsPaided() }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card d-totals">
+          <div class="d-item">
+            <i class="pi pi-dollar"></i> <br />
+            <span class="name">Orders delivered</span>
+            <span class="number">{{ totalOrderIsDelivered() }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card d-totals">
+          <div class="d-item">
+            <i class="pi pi-dollar"></i> <br />
+            <span class="name">Orders not paided</span>
+            <span class="number">{{ totalOrderIsNotPaided() }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card d-totals">
+          <div class="d-item">
+            <i class="pi pi-dollar"></i> <br />
+            <span class="name">Orders not delivered</span>
+            <span class="number">{{ totalOrderIsNotDelivered() }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-card>
+</div>

@@ -1,0 +1,20 @@
+<div class="banner">
+  <h3>Categories</h3>
+  <div class="grid">
+    @for (item of category(); track item._id) {
+    <div class="col">
+      <div
+        class="category"
+        [routerLink]="['/category/' + item._id]"
+        (click)="onCategorySelect(item._id)"
+      >
+        <div class="img">
+          <img class="imges" [src]="item.image" alt="Category Logo" />
+        </div>
+        <div class="name">{{ item.name }}</div>
+      </div>
+    </div>
+    }
+  </div>
+</div>
+

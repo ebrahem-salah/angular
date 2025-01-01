@@ -1,0 +1,15 @@
+<div class="banner">
+  <h3>sub category</h3>
+  <div class="grid">
+    @for (item of subcategory(); track item._id) {
+    <div class="col">
+      <div class="category" [routerLink]="['/subcategory', item._id]" (click)="Products(item._id)">
+        <div class="img">
+          <img class="imges" [src]="item" alt="Category Logo" />
+        </div>
+        <div class="name">{{ item.name }}</div>
+      </div>
+    </div>
+    }
+  </div>
+</div>

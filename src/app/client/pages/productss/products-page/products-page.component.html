@@ -1,0 +1,80 @@
+<p-toast position="top-center" />
+
+<div class="product-page">
+  <div class="grid">
+    <div class="col-6 main-image">
+      <p-image
+        [src]="selectedImage"
+        [alt]="product?.title"
+        [preview]="true"
+        width="600"
+      />
+      @if (image) {
+
+      <div class="images">
+        <ul>
+          <!-- <li><img width="200" [src]="product?.imageCover" alt="" /></li> -->
+          <li
+            [ngStyle]="{
+              'background-image': 'url(' + product?.imageCover + ')'
+            }"
+          ></li>
+          @for (item of product?.images; track $index) {
+          <!-- <li><img width="200" [src]="item" alt="" /></li> -->
+
+          <li (click)="changeSelectedImage(item)">
+            <img [src]="item" width="100px" />
+          </li>
+          }
+        </ul>
+      </div>
+      }
+    </div>
+    <div class="col-6 product">
+      <h1 class="name">{{ product?.title }}</h1>
+      <p class="desc">
+        {{ product?.description }}
+      </p>
+      <div class="rating">
+        <p-rating
+          [ngModel]="product?.ratingsAverge"
+          [cancel]="false"
+          [disabled]="true"
+        />
+      </div>
+      @if (priceDiscount) {
+      <div class="price">
+        {{ priceDiscount | currency : "EGP" }}
+        <span class="priceDiscount">
+          {{ product?.price | currency : "ar-EG" : "EGP" }}
+        </span>
+      </div>
+      }@else {
+      <div class="price">
+        {{ product?.price | currency : "ar-EG" : "EGP" }}
+      </div>
+
+      }
+      <div class="quant">
+        <p-inputNumber
+          [(ngModel)]="quantity"
+          [showButtons]="true"
+          [disabled]="false"
+          min="1"
+          max="3"
+          decrementButtonClass="p-button-danger"
+          incrementButtonClass="p-button-secondary"
+          incrementButtonIcon="pi pi-plus"
+          decrementButtonIcon="pi pi-minus"
+        />
+      </div>
+
+      <div class="action">
+        <button class="btn btn-primary mr-2" (click)="addToCart()">
+          Add to Cart
+        </button>
+        <button class="btn btn-primary" (click)="byNow()">By Now</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+.search-bar-container {
+  padding: 15px;
+  background: #eaf1fb;
+  border-radius: 32px;
+  display: flex;
+  align-items: center;
+
+  .input {
+    font-size: 1.1rem;
+    outline: none;
+    border: none;
+    background: inherit;
+    min-width: 352px;
+  }
+  &.opened {
+    background: white;
+    border-radius: 32px 32px 0px 0px;
+  }
+}
+.search {
+  font-size: 1.5rem;
+  min-width: 450px;
+}
+:host {
+  display: block;
+}

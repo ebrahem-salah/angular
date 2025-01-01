@@ -1,0 +1,51 @@
+.product-page {
+  background-color: white;
+  margin-top: 25px;
+}
+.action {
+  margin-top: 10px;
+}
+.desc {
+  font-size: 1.4em;
+}
+.rating {
+  margin: 15px 0;
+}
+.price {
+  font-size: 1.5em;
+  font-weight: 300;
+  padding: 20px 0;
+  color: blue;
+}
+.priceDiscount {
+  font-size: 0.7em;
+  font-weight: 200;
+  color: rgba(118, 120, 122, 0.305);
+  text-decoration: line-through;
+}
+.main-image {
+  margin-right: 40px;
+  text-align: center;
+  margin-bottom: 25px;
+  width: 600px;
+  height: 600px;
+  p-image {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+.images {
+  margin-top: 15px;
+  ul {
+    display: flex;
+    justify-content: center;
+  }
+  li {
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin-right: 15px;
+    margin-bottom: 70px;
+  }
+}

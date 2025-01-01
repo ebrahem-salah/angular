@@ -1,0 +1,115 @@
+<div class="admin-sidebar">
+  <div class="logo">
+    <img src="/assets/logo.png" alt="logo" />
+  </div>
+  <div class="links">
+    <ul>
+      <li>
+        <a routerLink="/admin" routerLinkActive="router-link-active"
+          ><i class="pi pi-home"></i> Dashboard</a
+        >
+      </li>
+      <li>
+        <a routerLink="products" routerLinkActive="router-link-active"
+          ><i class="pi pi-briefcase"></i> Products</a
+        >
+      </li>
+      <li>
+        <a routerLink="categories" routerLinkActive="router-link-active"
+          ><i class="pi pi-list"></i> Categories
+        </a>
+      </li>
+      <li>
+        <a routerLink="subcategories" routerLinkActive="router-link-active"
+          ><i class="pi pi-list"></i> SubCategories
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="brands" routerLinkActive="router-link-active"
+          ><i class="pi pi-list"></i> Brands
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="orders" routerLinkActive="router-link-active"
+          ><i class="pi pi-shopping-cart"></i> Orders</a
+        >
+      </li>
+      <li>
+        <a routerLink="users" routerLinkActive="router-link-active"
+          ><i class="pi pi-users"></i> Users</a
+        >
+      </li>
+      <li>
+        <a
+          class="logout"
+          routerLinkActive="router-link-active"
+          (click)="logout()"
+          ><i class="pi pi-sign-out"></i>Logout</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- <div class="card flex flex-wrap justify-content-center gap-2">
+  <p-sidebar [(visible)]="sidebarVisible1" position="left">
+    <div class="admin-sidbar">
+      <div class="logo">
+        <img src="/assets/logo.png" alt="logo" />
+      </div>
+      <div class="links">
+        <ul>
+          <li>
+            <a routerLink="dashboard" routerLinkActive="router-link-active"
+              ><i class="pi pi-home"></i> Dashboard</a
+            >
+          </li>
+          <li>
+            <a routerLink="products" routerLinkActive="router-link-active"
+              ><i class="pi pi-briefcase"></i> Products</a
+            >
+          </li>
+          <li>
+            <a routerLink="Categories" routerLinkActive="router-link-active"
+              ><i class="pi pi-list"></i> Categories
+            </a>
+          </li>
+          <li>
+            <a routerLink="orders" routerLinkActive="router-link-active"
+              ><i class="pi pi-shopping-cart"></i> Orders</a
+            >
+          </li>
+          <li>
+            <a routerLink="users" routerLinkActive="router-link-active"
+              ><i class="pi pi-users"></i> Users</a
+            >
+          </li>
+          <li>
+            <a routerLink="logout" routerLinkActive="router-link-active"
+              ><i class="pi pi-sign-out"></i>Logout</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </p-sidebar>
+
+  <p-sidebar [(visible)]="sidebarVisible2" position="right">
+    <h3>Right Sidebar</h3>
+  </p-sidebar>
+
+  <p-button
+    type="button"
+    class="mr-2"
+    (onClick)="sidebarVisible1 = true"
+    icon="pi pi-arrow-right"
+  />
+  <p-button
+    type="button"
+    class="mr-2"
+    (onClick)="sidebarVisible2 = true"
+    icon="pi pi-arrow-left"
+  />
+</div> -->

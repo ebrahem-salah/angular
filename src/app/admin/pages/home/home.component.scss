@@ -1,0 +1,20 @@
+.admin {
+  &-wrapper {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  &-main {
+    width: calc(100% - 175px);
+    margin-left: 175px;
+  }
+  &-sidebar {
+    position: fixed;
+    width: 175px;
+    background-color: #0a1d31;
+    height: 100%;
+  }
+  &-page {
+    padding: 15px;
+  }
+}

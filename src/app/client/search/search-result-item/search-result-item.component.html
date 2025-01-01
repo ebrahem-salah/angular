@@ -1,0 +1,46 @@
+<div class="overlay-container">
+  <div class="justify-content-center">
+    <mat-action-list>
+      @if (products().length) {
+
+      <mat-list-item (click)="searchService.overlayOpen.set(false)">
+        <h3 [routerLink]="['/search-results-list']">
+          All search results for products ({{ products().length }})
+        </h3>
+      </mat-list-item>
+
+      @for (product of products(); track product._id) {
+      <mat-list-item>
+        <div
+          class="flex flex-wrap p-2 align-items-center gap-3"
+          [routerLink]="['/products', product._id]"
+          (click)="searchService.overlayOpen.set(false)"
+        >
+          <img
+            [src]="product.imageCover"
+            [alt]="product.title"
+            class="w-4rem shadow-2 flex-shrink-0 border-round"
+          />
+          <div class="flex-1 flex flex-column gap-2">
+            <span class="font-bold">{{ product.title }}</span>
+            <div class="flex align-items-center gap-2">
+              <i class="pi pi-tag text-sm"></i>
+              <span>
+                {{ product.category.name }}
+              </span>
+            </div>
+          </div>
+          <span class="font-bold text-900">
+            {{ "EGP" + product.price }}
+          </span>
+        </div>
+      </mat-list-item>
+
+      } } @else {
+      <mat-list-item>
+        <h5>{{ message() }}</h5>
+      </mat-list-item>
+      }
+    </mat-action-list>
+  </div>
+</div>
