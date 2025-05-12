@@ -1,8 +1,7 @@
-<div class="prodcuts-page">
+<div class="products-page">
   <app-subCategories [subcategory]="subCategory()"> </app-subCategories>
   <div class="grid">
-    @if (!isCategoryPage ) {
-
+    @if (!isCategoryPage) {
     <div class="col-3">
       <button
         type="button"
@@ -12,6 +11,7 @@
       >
         Categories
       </button>
+
       <div class="form-control">
         @for (item of category; track item._id) {
         <div>
@@ -22,14 +22,31 @@
             [inputId]="item._id"
             [value]="item"
             binary="true"
-            (onChange)="categoryFilter()"
           />
         </div>
         }
       </div>
+      <div class="dropdown">
+        <button
+          class="btn btn-primary dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+        >
+          اختر التصنيفات
+        </button>
+        <ul class="dropdown-menu">
+          @for (item of category; track item._id) {
+          <li>
+            <a class="dropdown-item" (click)="categoryFilter(item._id)">{{
+              item.name
+            }}</a>
+          </li>
+          }
+        </ul>
+      </div>
     </div>
     }
-    <div></div>
+
     <div [ngClass]="{ 'col-9': !isCategoryPage, 'col-12': isCategoryPage }">
       <div class="grid">
         @for (item of products(); track item._id) {
@@ -37,6 +54,13 @@
           <app-products-item style="margin-inline-end: auto" [product]="item" />
         </div>
         }
+      </div>
+
+      <!-- ✅ زر تحميل المزيد بدلاً من السابق والتالي -->
+      <div class="pagination grid">
+        <button (click)="loadMore()" *ngIf="paginationResult()?.next">
+          تحميل المزيد
+        </button>
       </div>
     </div>
   </div>

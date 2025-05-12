@@ -5,6 +5,7 @@ import { CartIconComponent } from '../../pages/cart/cart-icon/cart-icon.componen
 import { CommonModule } from '@angular/common';
 import { TokenService } from '../../../service/token.service';
 import { SearchComponent } from '../../search/search/search.component';
+import { UserIconComponent } from "../../pages/user/user-icon/user-icon.component";
 
 @Component({
   selector: 'app-menubar',
@@ -15,20 +16,24 @@ import { SearchComponent } from '../../search/search/search.component';
     CartIconComponent,
     CommonModule,
     SearchComponent,
-  ],
+    UserIconComponent
+],
   templateUrl: './menubar.component.html',
   styleUrl: './menubar.component.scss',
 })
 export class MenubarComponent implements OnInit {
   private tokenService = inject(TokenService);
 
-  username: string | undefined;
+  
   ngOnInit(): void {
     this.isUserLoggedIn();
   }
 
   isUserLoggedIn(): boolean {
-    this.username = localStorage.getItem('username')?.toString();
+    if(this.tokenService.getAccessToken()){
+
+      // this.username = localStorage.getItem('username')
+    }
     return !!this.tokenService.getAccessToken();
   }
 }

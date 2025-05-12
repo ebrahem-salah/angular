@@ -89,12 +89,10 @@ export class ProductsPageComponent implements OnInit {
       name: this.product?.name,
       color: this.color, // Assuming the first color is selected//+
       quantity: (this.quantity as number) || 1,
-      price: this.product?.price ,
+      price: this.product?.price,
     };
 
-    return this.cartService
-      .add(cartItem)
-      .subscribe((data) => console.log(data));
+    return this.cartService.add(cartItem).subscribe();
   }
 
   byNow() {

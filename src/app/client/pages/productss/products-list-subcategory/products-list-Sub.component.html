@@ -1,0 +1,15 @@
+<div class="prodcuts-page">
+  <div class="grid">
+  
+    <div></div>
+    <div [ngClass]="{ 'col-9': !isCategoryPage, 'col-12': isCategoryPage }">
+      <div class="grid">
+        @for (item of products(); track item._id) {
+        <div class="col">
+          <app-products-item style="margin-inline-end: auto" [product]="item" />
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

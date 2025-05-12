@@ -1,9 +1,7 @@
-import { ProductsService } from './../../../../service/products.service';
 import { Component, inject, signal } from '@angular/core';
 import { CartService } from '../../../../service/cart.service';
 import { CommonModule } from '@angular/common';
-import { Cart, Cartdata, CartItems } from '../../../../models/cart.model';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TableModule } from 'primeng/table';
@@ -11,8 +9,8 @@ import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { OrdersService } from '../../../../service/orders.service';
-import { Order } from '../../../../models/orders.models.';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-cart-page',
@@ -27,25 +25,45 @@ import { Order } from '../../../../models/orders.models.';
     RatingModule,
     CardModule,
     ButtonModule,
+    ToastModule,
   ],
+  providers: [MessageService],
   templateUrl: './cart-page.component.html',
   styleUrl: './cart-page.component.scss',
 })
 export class CartPageComponent {
   private cartService = inject(CartService);
-  private ordersService = inject(OrdersService);
-  cartItems = signal<CartItems[]>([]);
-  cartdata = signal<Cart[]>([]);
-  cart = signal<Cartdata[]>([]);
-  cartId = signal<Cartdata[]>([]);
-  quantity = signal<number>(0);
-  totalPrice = signal<number>(0);
-  total = signal<number>(0);
-  totalPriceAfterDisc = signal<number>(0);
-  orderId = signal<string | undefined>('');
+  private router = inject(Router);
+  private messageService = inject(MessageService);
 
-  navgiteToCheckOut(orderId: string) {
-    this.ordersService.checkout(orderId).subscribe((data) => console.log(data));
+  cartItems = this.cartService.cartItems;
+  totalPrice = this.cartService.totalPrice;
+  totalPriceAfterDisc = this.cartService.totalPriceAfterDisc;
+  orderId = this.cartService.orderId;
+  discountApplied = this.cartService.discountApplied;
+
+  navigateToCheckOut() {
+    this.router.navigateByUrl('/checkout');
+  }
+  // اضافه كوبون خصم
+  applyCoupon(couponCode: string) {
+    this.cartService.applyCoupon({ name: couponCode }).subscribe({
+      next: () => {
+        // عند نجاح الكوبون
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Discount applied successfully!',
+        });
+      },
+      error: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Coupon is invalid or expired',
+        });
+      },
+    });
   }
 
   // تحديث الكمية في السلة
@@ -55,9 +73,9 @@ export class CartPageComponent {
     this.cartService
       .update(cartId, { quantity } as unknown as number)
       .subscribe({
-        next: () => {
-          this.loadCartItems(); // تحديث السلة بعد التعديل
-        },
+        // next: () => {
+        //   this.loadCartItems(); // تحديث السلة بعد التعديل
+        // },
         error: (err) => {
           console.error('Error updating quantity:', err);
           if (err.status === 400) {
@@ -70,25 +88,16 @@ export class CartPageComponent {
   }
 
   // الحصول على الكمية المتاحة في المخزون للمنتج
-
   removeItem(cardId: string) {
     this.cartService
       .remove(cardId)
-      .subscribe({ next: () => this.loadCartItems() });
+      .subscribe();
   }
 
   ngOnInit() {
-    this.loadCartItems();
+    // this.loadCartItems();
   }
-  loadCartItems() {
-    this.cartService.getAll().subscribe((data) => {
-      console.log(data);
-      this.orderId.set(data.data._id);
-      this.cartItems.set(data.data.cartItems);
-      this.totalPrice.set(data.data.totalPrice || 0);
-      this.cartId.set(data.data._id as unknown as Cartdata[]);
-      this.cart.set(data.data as unknown as Cartdata[]);
-      this.totalPriceAfterDisc.set(data.data.totalPriceAfterDiscount || 0);
-    });
+  loadCartItems() { 
+    // this.cartService.get().subscribe();
   }
 }

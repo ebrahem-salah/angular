@@ -1,9 +1,6 @@
 <p-toast position="top-center" />
 <div class="admin-page">
-  <p-card
-    [header]="editMode() ? 'Edit User' : 'Create User'"
-    subheader="You can add or edit product here "
-  >
+  <p-card [header]="'Edit User'" subheader="You can update user here ">
     <div class="p-grid mb-4">
       <div class="p-col-12">
         <p-toolbar>
@@ -11,7 +8,7 @@
           <div class="p-toolbar-group-left">
             <p-button
               styleClass="p-button-primary mr-2"
-              [label]="editMode() ? 'Update' : 'Create'"
+              [label]="'Update'"
               icon="pi pi-plus"
               (onClick)="onSubmit()"
             ></p-button>
@@ -34,8 +31,9 @@
         [formGroup]="form"
       >
         <div class="col-4">
-          <label for="title" class="form-label">Name</label>
+          <label for="name" class="form-label">Name</label>
           <input
+            id="name"
             type="text"
             class="form-control"
             placeholder="Name"
@@ -49,20 +47,13 @@
         </div>
 
         <div class="col-4">
-          <label for="phone" class="form-label">Phone</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Phone"
-            name="phone"
-            formControlName="phone"
-            required
-          />
-        </div>
-
-        <div class="col-4">
           <label for="role" class="form-label">Role</label>
-          <select class="form-control" formControlName="role">
+          <select
+            class="form-control"
+            formControlName="role"
+            name="role"
+            id="role"
+          >
             <option value="user">User</option>
             <option value="admin">Admin</option>
             <option value="manger">Manger</option>
@@ -70,55 +61,13 @@
         </div>
 
         <div class="col-4">
-          <label for="active" class="form-label">Active</label><br />
-          <p-inputSwitch formControlName="active" [falseValue]="Control.active"  />
-
-        </div>
- <!--
-        <div class="col-4">
-          <label for="quantity" class="form-label">Quantity</label><br />
-          <input
-            type="number"
-            class="form-control"
-            placeholder="Quantity"
-            name="quantity"
-            formControlName="quantity"
-            required
+          <label class="form-label">Active</label><br />
+          <p-inputSwitch
+            formControlName="active"
+            [falseValue]="false"
+            [trueValue]="true"
           />
-
-          <small class="p-error" *ngIf="isSubmatted && Control.quantity.invalid"
-            >Quantity is required</small
-          >
         </div>
-
-        <div class="col-4">
-          <label for="formFile" class="form-label">Image cover</label>
-          <input
-            class="form-control"
-            type="file"
-            name="imageCover"
-            accept="image/*"
-            (change)="onFileSelected($event)"
-          />
-          <p class="p-error" *ngIf="isSubmatted && Control.imageCover.invalid">
-            Image cover is required
-          </p>
-        </div>
-
-        <div class="col-12">
-          <label for="description" class="form-label"> Description </label>
-          <textarea
-            formControlName="description"
-            class="form-control"
-            id="description"
-            rows="3"
-          ></textarea>
-          <small
-            class="p-error"
-            *ngIf="isSubmatted && Control.description.invalid"
-            >Description is required</small
-          >
-        </div> -->
       </form>
     </div>
   </p-card>

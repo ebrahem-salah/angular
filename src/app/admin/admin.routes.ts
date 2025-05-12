@@ -44,7 +44,7 @@ export const routes: Routes = [
         component: AdminSubCategoriesComponent,
       },
 
-      { path: 'users', component: AdminUsersListComponent },
+      { path: 'users', component: AdminUsersListComponent ,canActivate: [adminGuard]},
       { path: 'users/form', component: AdminUsersComponent },
       { path: 'users/form/:id', component: AdminUsersComponent },
 

@@ -1,0 +1,300 @@
+<p-toast position="top-center" />
+<p-card>
+  <div class="checkout-container">
+    <h2>Checkout</h2>
+
+    <div class="cart-items">
+      <h3>Your Cart</h3>
+      <div *ngFor="let item of cartItems()" class="cart-item">
+        <span>{{ item.product?.title }}</span>
+        <span>{{ item.quantity }} x {{ item.price | currency }}</span>
+      </div>
+    </div>
+
+    <div class="shipping-details">
+      <h3>Shipping Details</h3>
+      <form (ngSubmit)="onSubmitt()">
+        <label for="address">Address:</label>
+        <input
+          id="address"
+          [(ngModel)]="shippingAddress"
+          name="address"
+          required
+        />
+
+        <label for="city">City:</label>
+        <input id="city" [(ngModel)]="shippingCity" name="city" required />
+
+        <label for="zip">Zip Code:</label>
+        <input id="zip" [(ngModel)]="shippingZip" name="zip" required />
+      </form>
+    </div>
+
+    <div class="payment-method">
+      <h3>Payment Method</h3>
+      <select [(ngModel)]="selectedPaymentMethod" name="paymentMethod">
+        <option value="creditCard">Credit Card</option>
+        <option value="paypal">PayPal</option>
+      </select>
+    </div>
+
+    <div class="order-summary">
+      <h3>Order Summary</h3>
+      <p>Total: {{ totalPrice() | currency }}</p>
+      <p *ngIf="totalPriceAfterDisc() > 0">
+        Total After Discount: {{ totalPriceAfterDisc() | currency }}
+      </p>
+    </div>
+
+    <button (click)="placeOrder()" class="place-order-btn">Place Order</button>
+  </div>
+</p-card>
+
+<div class="order-summary-container">
+  <h2>Checkout</h2>
+
+  <div class="cart-items">
+    <h3>Your Cart</h3>
+    <div *ngFor="let item of cartItems()" class="cart-item">
+      <span>{{ item.product?.title }}</span>
+      <span>{{ item.quantity }} x {{ item.price | currency }}</span>
+    </div>
+  </div>
+
+  <!-- عناصر سلة التسوق -->
+  <div class="cart-items">
+    <h3>1 متابع في سلة التسوق</h3>
+    <div class="cart-item">
+      <h4>
+        محتضرة قوية تركي لوزنيده لونوماتيك 330 كمل أدعم × السود TCME-100 RG
+      </h4>
+      <p>2,899</p>
+      <p>الكمية: 1</p>
+    </div>
+  </div>
+
+  <!-- جدول الوصف والسعر -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th>الوصف</th>
+        <th>القسم</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>مكتب</td>
+        <td>مكتب</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- إجمالي الطلب -->
+  <div class="total-price">
+    <p>إجمالي الطلب: 2,899</p>
+    <p>أصل تهد الخصم</p>
+  </div>
+
+  <!-- شروط البيع -->
+  <div class="terms">
+    <p>لوليق على الشروط والتحقق ومباسبات البيع</p>
+  </div>
+
+  <!-- زر الدفع -->
+  <button class="btn btn-primary">ادفع الآن</button>
+
+  <!-- طريقة الشحن -->
+  <div class="shipping-method">
+    <h3>طريقة الشحن</h3>
+    <p>تاريخ التوصيل:</p>
+    <p>التاريخ</p>
+    <p>وبناء اختيار تاريخ التوصيل</p>
+  </div>
+
+  <!-- تعليق على التسليم -->
+  <div class="delivery-comment">
+    <h3>تعليق على التسليم الخاص بك</h3>
+    <p>املؤتمر صافي محمود يفوضي</p>
+    <p>ويجوز الصيف الصحي شارع عبد بن الغطاب، رغم الصنين:</p>
+    <p>0.5 قانون 2، رغم الشفة</p>
+    <p>شمس السويس السويس7777</p>
+    <p>معلم</p>
+    <p>01100786228</p>
+    <p>رقم الشفة: 00</p>
+    <p>رقم الصنين: 9</p>
+    <p>رقم الدورة: 01</p>
+    <p>خلصة ممتازة، جدار الصيف الصحي</p>
+    <p>01096980991 رقم موقابل بيّني:</p>
+  </div>
+
+  <!-- عنوان جديد -->
+  <div class="new-address">
+    <h3>عنوان جديد</h3>
+  </div>
+</div>
+
+<!-- <p-card header="Checkout">
+
+
+  <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+    <div class="p-grid">
+      <div class="p-col-12 p-md-6">
+        <div class="p-field">
+          <label for="fullName">Full Name</label>
+          <input id="fullName" type="text" pInputText formControlName="fullName" />
+        </div>
+      </div>
+      
+      <div class="p-col-12 p-md-6">
+        <div class="p-field">
+          <label for="address">Address</label>
+          <input id="address" type="text" pInputText formControlName="address" />
+        </div>
+      </div>
+      
+      <div class="p-col-12 p-md-6">
+        <div class="p-field">
+          <label for="phone">Phone Number</label>
+          <input id="phone" type="text" pInputText formControlName="phone" />
+        </div>
+      </div>
+      
+      <div class="p-col-12">
+        <p-divider></p-divider>
+      </div>
+      
+      <div class="p-col-12 p-md-6">
+        <div class="p-field">
+          <label for="paymentMethod">Payment Method</label>
+          <p-dropdown id="paymentMethod" [options]="paymentMethods" formControlName="paymentMethod"></p-dropdown>
+        </div>
+      </div>
+      
+      <div class="p-col-12">
+        <p-button label="Place Order" type="submit" [disabled]="!checkoutForm.valid"></p-button>
+      </div>
+    </div>
+  </form>
+</p-card> -->
+
+<!-- checkout.component.html -->
+<div
+  class="checkout-container"
+  fxLayout="row"
+  fxLayout.lt-md="column"
+  fxLayoutGap="30px"
+>
+  <!-- نموذج الشحن والدفع -->
+  <div class="form-section" fxFlex="60%">
+    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+      <!-- معلومات الشحن -->
+      <mat-card class="shipping-info">
+        <mat-card-header>
+          <mat-card-title>معلومات الشحن</mat-card-title>
+        </mat-card-header>
+        <mat-card-content formGroupName="shippingInfo">
+          <mat-form-field appearance="outline">
+            <mat-label>الاسم بالكامل</mat-label>
+            <input matInput formControlName="fullName" required />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>العنوان</mat-label>
+            <textarea matInput formControlName="address" rows="3"></textarea>
+          </mat-form-field>
+
+          <div fxLayout.gt-xs="row" fxLayoutGap="15px">
+            <mat-form-field appearance="outline" fxFlex>
+              <mat-label>المدينة</mat-label>
+              <input matInput formControlName="city" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex>
+              <mat-label>الهاتف</mat-label>
+              <input matInput formControlName="phone" type="tel" />
+            </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="outline">
+            <mat-label>البريد الإلكتروني</mat-label>
+            <input matInput formControlName="email" type="email" />
+          </mat-form-field>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- معلومات الدفع -->
+      <mat-card class="payment-info">
+        <mat-card-header>
+          <mat-card-title>معلومات الدفع</mat-card-title>
+        </mat-card-header>
+        <mat-card-content formGroupName="paymentInfo">
+          <mat-form-field appearance="outline">
+            <mat-label>رقم البطاقة</mat-label>
+            <input
+              matInput
+              formControlName="cardNumber"
+              placeholder="1234 5678 9012 3456"
+            />
+          </mat-form-field>
+
+          <div fxLayout.gt-xs="row" fxLayoutGap="15px">
+            <mat-form-field appearance="outline" fxFlex>
+              <mat-label>تاريخ الانتهاء</mat-label>
+              <input
+                matInput
+                formControlName="expiryDate"
+                placeholder="MM/YY"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex>
+              <mat-label>CVV</mat-label>
+              <input matInput formControlName="cvv" type="password" />
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!checkoutForm.valid"
+      >
+        تأكيد الطلب - {{ total | currency : "EGP " }}
+      </button>
+    </form>
+  </div>
+
+  <!-- ملخص الطلب -->
+  <div class="order-summary" fxFlex="40%">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>ملخص الطلب</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="order-item" *ngFor="let item of items">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <span>{{ item.name }} (x{{ item.quantity }})</span>
+            <span>{{ item.price * item.quantity | currency : "EGP " }}</span>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="summary-row">
+          <span>المجموع الفرعي:</span>
+          <span>{{ subtotal | currency : "EGP " }}</span>
+        </div>
+        <div class="summary-row">
+          <span>الشحن:</span>
+          <span>50.00 ج.م</span>
+        </div>
+        <div class="summary-row total">
+          <span>الإجمالي:</span>
+          <span>{{ total | currency : "EGP " }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

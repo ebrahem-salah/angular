@@ -41,7 +41,7 @@ export class AdminSubCategoriesListComponent implements OnInit {
 
   subCategories = signal<SubCategories[]>([]);
   pagination = signal<PaginationResult[]>([]);
-  subCategory = signal<SubCategory[]>([]);
+  subCategory = this.subCategoryService.subCategory;
   resulte = signal<number>(0);
   error = signal('');
 

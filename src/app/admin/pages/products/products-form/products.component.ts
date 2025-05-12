@@ -21,9 +21,7 @@ import { DropdownModule } from 'primeng/dropdown';
 
 import { ProductsService } from '../../../../service/products.service';
 import { Product } from '../../../../models/poduct.models';
-import {
-  Category,
-} from '../../../../models/category.models';
+import { Category } from '../../../../models/category.models';
 import { CategoriesService } from '../../../../service/categories.service';
 import { SubCategory } from '../../../../models/subcategory.models';
 import { Brand } from '../../../../models/brands.models';
@@ -71,7 +69,7 @@ export class AdminProductsComponent {
   currentId = signal('');
   isSubmatted = false;
   selectedFile!: File;
-  category = signal<Category[]>([]);
+  category = this.categoryService.category;
   subCategory = signal<SubCategory[]>([]);
   brands = signal<Brand[]>([]);
   pagination: unknown;
@@ -159,7 +157,7 @@ export class AdminProductsComponent {
             this.Control.imageCover.setValue(id.imageCover);
             this.Control.images.setValue(id.images);
             this.Control.description.setValue(id.description);
-            this.Control.subcategory.setValue(id.subcategory._id);
+            this.Control.subcategory.setValue(id.subCategory._id);
             this.Control.colors.setValue(id.colors[0]);
             this.imageDisplay.set(id?.imageCover);
             this.imagesDisplay.set(id?.images);
@@ -237,15 +235,16 @@ export class AdminProductsComponent {
   onCategoryChange(categoryId: string): void {
     if (categoryId) {
       // جلب Subcategories بناءً على Category ID
-      this.categoryService.getAll(categoryId).subscribe({
+      this.categoryService.get(categoryId).subscribe({
         next: (data) => {
-          this.subCategory.set(
-            data.data.map((item: Category) => ({
-              ...item,
-              category: item, // ربط التصنيف الفرعي بالتصنيف الرئيسي
-            }))
-          );
-          console.log(data.data);
+          this.subCategory.set(data.subcategories!);
+          // this.subCategory.set(
+          //   data.data.map((item: Category) => ({
+          //     ...item,
+          //     category: item, // ربط التصنيف الفرعي بالتصنيف الرئيسي
+          //   }))
+          // );
+          console.log(data);
         },
       });
     } else {

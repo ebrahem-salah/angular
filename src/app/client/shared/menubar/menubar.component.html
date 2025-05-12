@@ -17,16 +17,16 @@
         <app-search></app-search>
       </ng-template>
       <ng-template pTemplate="end">
-        @if (isUserLoggedIn()) {
+        <!-- @if (isUserLoggedIn()) { -->
         <div class="flex align-items-center gap-3 font-bold text-bluegray-50">
-          <h3 *ngIf="username">
-            <i class="pi pi-user" style="font-size: 2rem"></i>
-            {{ username }}
-          </h3>
-          <app-cart-icon />
+          <i class="pi pi-user" style="font-size: 2rem"></i>
+          <app-user-icon style="cursor: pointer"></app-user-icon>
+
+          <app-cart-icon style="cursor: pointer" />
         </div>
-        }
-      </ng-template>
+          <!-- }  -->
+
+        </ng-template>
     </p-toolbar>
   </div>
 </div>

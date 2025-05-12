@@ -1,0 +1,191 @@
+<p-toast position="top-center" />
+<div class="admin-page">
+  <p-card [header]="'Address'" subheader="You can update Address here ">
+    <div class="p-grid mb-4">
+      <div class="p-col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-right"></div>
+          <div class="p-toolbar-group-left">
+            <p-button
+              styleClass="p-button-primary mr-2"
+              [label]="'Update'"
+              icon="pi pi-plus"
+              (onClick)="onSubmit()"
+            ></p-button>
+
+            <p-button
+              styleClass="p-button-secondary mr-2"
+              label="Cancel"
+              icon="pi pi-arrow-circle-left"
+              routerLink="/admin/users"
+            ></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+
+    <div>
+      <form
+        class="row justify-content-center align-items-center g-2"
+        isSubmatted
+        [formGroup]="form"
+      >
+        <div class="col-4">
+          <label for="firstName" class="form-label">First Name</label>
+          <input
+            id="firstName"
+            type="text"
+            class="form-control"
+            placeholder="firstName"
+            name="firstName"
+            formControlName="firstName"
+            required
+          />
+          <p class="p-error" *ngIf="isSubmatted &&Control.firstName.invalid">
+            First Name is required
+          </p>
+        </div>
+
+        <div class="col-4">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input
+            id="lastName"
+            type="text"
+            class="form-control"
+            placeholder="lastName"
+            name="lastName"
+            formControlName="lastName"
+            required
+          />
+          <p class="p-error" *ngIf="isSubmatted &&Control.lastName.invalid">
+            Last Name is required
+          </p>
+        </div>
+
+        <div class="col-4">
+          <label for="phone" class="form-label">Phone</label>
+          <input
+            id="phone"
+            type="text"
+            class="form-control"
+            placeholder="phone"
+            name="phone"
+            formControlName="phone"
+            required
+          />
+          <p class="p-error" *ngIf="isSubmatted &&Control.phone.invalid">Phone is required</p>
+        </div>
+
+        <div class="col-4">
+          <label for="secondPhone" class="form-label">Second Phone</label>
+          <input
+            id="secondPhone"
+            type="text"
+            class="form-control"
+            placeholder="Second Phone"
+            name="secondPhone"
+            formControlName="secondPhone"
+            required
+          />
+          <p class="p-error" *ngIf="isSubmatted &&Control.secondPhone.invalid">
+            Second Phone is required
+          </p>
+        </div>
+
+        <div class="col-4">
+          <label for="governorate" class="form-label">Governorate</label>
+          <input
+            id="governorate"
+            type="text"
+            class="form-control"
+            placeholder="governorate"
+            name="governorate"
+            formControlName="governorate"
+            required
+          />
+          <p class="p-error" *ngIf="isSubmatted &&Control.governorate.invalid">
+            governorate is required
+          </p>
+        </div>
+
+        <div class="col-4">
+          <label for="region" class="form-label">Region</label>
+          <input
+            id="region"
+            type="text"
+            class="form-control"
+            placeholder="Region"
+            name="region"
+            formControlName="region"
+            required
+          />
+          <p class="p-error" *ngIf="isSubmatted &&Control.region.invalid">
+            Region is required
+          </p>
+        </div>
+
+        <div class="col-4">
+          <label for="street" class="form-label">Street</label>
+          <input
+            id="street"
+            type="text"
+            class="form-control"
+            placeholder="Street"
+            name="street"
+            formControlName="street"
+            required
+          />
+          <p class="p-error" *ngIf="isSubmatted &&Control.street.invalid">
+            Street is required
+          </p>
+        </div>
+
+        <div class="col-4">
+          <label for="buildingNo" class="form-label">BuildingNo</label>
+          <input
+            id="buildingNo"
+            type="text"
+            class="form-control"
+            placeholder="Building Number"
+            name="buildingNo"
+            formControlName="buildingNo"
+            required
+          />
+          <p class="p-error" *ngIf="isSubmatted &&Control.buildingNo.invalid">
+            Building Number is required
+          </p>
+        </div>
+
+        <div class="col-4">
+          <label for="floor" class="form-label">Floor</label>
+          <input
+            id="floor"
+            type="text"
+            class="form-control"
+            placeholder="Floor"
+            name="floor"
+            formControlName="floor"
+            required
+          />
+          <p class="p-error" *ngIf="isSubmatted &&Control.floor.invalid">Floor is required</p>
+        </div>
+
+        <div class="col-4">
+          <label for="landmark" class="form-label">Landmark</label>
+          <input
+            id="landmark"
+            type="text"
+            class="form-control"
+            placeholder="Landmark"
+            name="landmark"
+            formControlName="landmark"
+            required
+          />
+          <p class="p-error" *ngIf="isSubmatted &&Control.landmark.invalid">
+            Landmark is required
+          </p>
+        </div>
+      </form>
+    </div>
+  </p-card>
+</div>

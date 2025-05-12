@@ -1,0 +1,64 @@
+// .checkout-container {
+//     max-width: 600px;
+//     margin: 0 auto;
+//     padding: 20px;
+//     border: 1px solid #ccc;
+//     border-radius: 8px;
+//   }
+
+//   .cart-items, .shipping-details, .payment-method, .order-summary {
+//     margin-bottom: 20px;
+//   }
+
+//   .place-order-btn {
+//     background-color: #28a745;
+//     color: white;
+//     padding: 10px 20px;
+//     border: none;
+//     border-radius: 5px;
+//     cursor: pointer;
+//   }
+
+//   .place-order-btn:hover {
+//     background-color: #218838;
+//   }
+
+.order-summary-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.cart-items,
+.total-price,
+.terms,
+.shipping-method,
+.delivery-comment,
+.new-address {
+  margin-bottom: 20px;
+}
+
+.cart-item {
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}

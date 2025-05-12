@@ -9,11 +9,13 @@ import { ProductsListComponent } from './client/pages/productss/products-list/pr
 import { LayoutComponent } from './client/layout/layout.component';
 import { ProductsPageComponent } from './client/pages/productss/products-page/products-page.component';
 import { CartPageComponent } from './client/pages/cart/cart-page/cart-page.component';
-import { SearchResultItemComponent } from './client/search/search-result-item/search-result-item.component';
 import { SearchResultListComponent } from './client/search/search-result-list/search-result-list.component';
-import { CategoriesComponent } from './components/categories/categories.component';
-import { SubcategoriesComponent } from './components/subcategories/subcategories.component';
-import { ProductsComponent } from './components/products/products.component';
+import { ProductsListSubComponent } from './client/pages/productss/products-list-subcategory/products-list-Sub.component';
+import { UserProfileComponent } from './client/pages/user/user-profile/user-profile.component';
+import { CheckoutComponent } from './client/pages/cart/checkout/checkout.component';
+import { MyAccountComponent } from './users/my-account/my-account.component';
+import { UserEditorComponent } from './client/pages/user/user-editor/user-editor.component';
+import { AddressComponent } from './client/pages/user/address/address.component';
 
 export const routes: Routes = [
   {
@@ -23,8 +25,10 @@ export const routes: Routes = [
       {
         path: '',
         component: HomeComponent,
+        title: 'Home',
       },
       { path: 'products', component: ProductsListComponent },
+
       { path: 'search/:keyword', component: SearchComponent },
 
       { path: 'products/:productId', component: ProductsPageComponent },
@@ -34,30 +38,41 @@ export const routes: Routes = [
       },
       {
         path: 'subcategory/:productId',
-        component: ProductsListComponent,
+        component: ProductsListSubComponent,
       },
       {
         path: 'cart',
         component: CartPageComponent,
+        // canActivate: [authGuard],
+      },
+      {
+        path: 'checkout',
+        component: CheckoutComponent,
+        // canActivate: [authGuard],
+      },
+      {
+        path: 'customer/account',
+        component: UserProfileComponent,
+        title: 'My Account',
+
         canActivate: [authGuard],
       },
+      {
+        path: 'customer/account/edit/:',
+        component: UserEditorComponent,
+        title: 'My Account',
+
+        canActivate: [authGuard],
+      },
+      {
+        path: 'customer/account/address/:',
+        component: AddressComponent,
+        title: 'My Address',
+
+        canActivate: [authGuard],
+      },
+
       { path: 'search-results-list', component: SearchResultListComponent },
-      // {
-      //   path: 'categories',
-      //   component: CategoriesComponent,
-      //   children: [
-      //     {
-      //       path: ':categoryId/subcategories',
-      //       component: SubcategoriesComponent,
-      //       children: [
-      //         {
-      //           path: ':subCategoryId/products',
-      //           component: ProductsComponent,
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
     ],
   },
 
@@ -77,5 +92,6 @@ export const routes: Routes = [
   {
     path: 'users/login',
     component: LoginComponent,
+    canActivate: [loginGuard],
   },
 ];

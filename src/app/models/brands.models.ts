@@ -1,5 +1,5 @@
 export interface Brands {
-  PaginationResult: PaginationResult[];
+  PaginationResult: PaginationResult;
   data: Brand[];
   resulte: number;
 }

@@ -1,0 +1,202 @@
+// .products-page {
+//   padding: 10px;
+
+//   .grid {
+//     display: flex;
+//     flex-wrap: wrap;
+//   }
+
+//   .col-3 {
+//     width: 25%;
+//   }
+
+//   .col-9 {
+//     width: 75%;
+//   }
+
+//   .col-12 {
+//     width: 100%;
+//   }
+
+//   .pagination {
+//     display: flex;
+//     justify-content: center;
+//     margin-top: 20px;
+//     margin-bottom: 30px;
+
+//     button {
+//       background-color: #007bff;
+//       color: #fff;
+//       border: none;
+//       padding: 10px 20px;
+//       font-size: 16px;
+//       border-radius: 5px;
+//       cursor: pointer;
+//       transition: background-color 0.3s ease-in-out;
+
+//       &:hover {
+//         background-color: #0056b3;
+//       }
+
+//       &:disabled {
+//         background-color: #ccc;
+//         cursor: not-allowed;
+//       }
+//     }
+//   }
+// }
+
+// الألوان
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$background-color: #f8f9fa;
+$text-color: #212529;
+$border-color: #dee2e6;
+$hover-color: darken($primary-color, 10%);
+
+// التأثيرات
+@mixin hover-effect {
+  transition: all 0.3s ease;
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@mixin button-effect {
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: $hover-color;
+    color: white;
+  }
+}
+
+// التصميم العام
+.products-page {
+  padding: 20px;
+  background-color: $background-color;
+
+  .grid {
+    display: flex;
+    gap: 20px;
+
+    .col-3 {
+      flex: 0 0 25%;
+      max-width: 25%;
+
+      .dropdown-toggle {
+        width: 100%;
+        background-color: $primary-color;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        @include button-effect;
+      }
+
+      .form-control {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: white;
+        border: 1px solid $border-color;
+        border-radius: 4px;
+
+        .p-checkbox {
+          margin-bottom: 10px;
+          label {
+            margin-left: 8px;
+            color: $text-color;
+          }
+        }
+      }
+    }
+
+    .col-9,
+    .col-12 {
+      flex: 1;
+
+      .grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        .col {
+          flex: 1 1 calc(25% - 20px);
+          max-width: calc(25% - 20px);
+          @include hover-effect;
+
+          app-products-item {
+            display: block;
+            background-color: white;
+            border: 1px solid $border-color;
+            border-radius: 8px;
+            overflow: hidden;
+            padding: 16px;
+          }
+        }
+      }
+
+      .pagination {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+
+        button {
+          background-color: $primary-color;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 4px;
+          cursor: pointer;
+          @include button-effect;
+
+          &:disabled {
+            background-color: $secondary-color;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+}
+
+// التصميم المتجاوب
+@media (max-width: 768px) {
+  .products-page {
+    .grid {
+      flex-direction: column;
+
+      .col-3 {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+
+      .col-9,
+      .col-12 {
+        .grid {
+          .col {
+            flex: 1 1 calc(50% - 20px);
+            max-width: calc(50% - 20px);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .products-page {
+    .grid {
+      .col-9,
+      .col-12 {
+        .grid {
+          .col {
+            flex: 1 1 100%;
+            max-width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

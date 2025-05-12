@@ -11,17 +11,32 @@
           </div>
           }
           <div class="input-box">
-            <label class="form-label">Name</label>
+            <label class="form-label">First Name</label>
             <input
               type="text"
-              formControlName="name"
-              name="name"
-              id="name"
+              formControlName="firstName"
+              name="firstName"
+              id="firstName"
               required
             />
 
-            <small class="p-error" *ngIf="name.invalid && (name.dirty || name.touched)">
-              <small *ngIf="name.hasError('required')">Name is required</small>
+            <small class="p-error" *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+              <small *ngIf="firstName.hasError('required')">Name is required</small>
+              <!-- <small *ngIf="name.hasError('pattern')">Enter a vaild name</small> -->
+            </small>
+          </div>
+          <div class="input-box">
+            <label class="form-label">last name</label>
+            <input
+              type="text"
+              formControlName="lastName"
+              name="lastName"
+              id="lastName"
+              required
+            />
+
+            <small class="p-error" *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+              <small *ngIf="lastName.hasError('required')">Name is required</small>
               <!-- <small *ngIf="name.hasError('pattern')">Enter a vaild name</small> -->
             </small>
           </div>

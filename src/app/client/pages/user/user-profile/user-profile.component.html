@@ -1,0 +1,64 @@
+<div class="p-grid checkout-container">
+  <!-- Sidebar -->
+  <div class="p-col-12 p-md-3 sidebar">
+    <p-panel header="My Account" class="sidebar-panel">
+      <ul class="sidebar-menu">
+        <li><i class="pi pi-user"></i> My Account</li>
+        <li><i class="pi pi-phone"></i> تحديث رقم الموبايل</li>
+        <li><i class="pi pi-gift"></i> نقاطي</li>
+        <li><i class="pi pi-bell"></i> تنبيهات المنتجات</li>
+        <li><i class="pi pi-shopping-cart"></i> طلباتي</li>
+        <li><i class="pi pi-heart"></i> قائمة أمنياتي</li>
+        <li (click)="editAddress()"><i class="pi pi-map"></i> سجل العناوين</li>
+        <li><i class="pi pi-cog"></i> معلومات الحساب</li>
+        <li><i class="pi pi-star"></i> مراجعاتي</li>
+        <li (click)="logOut()" class="logout">
+          <i class="pi pi-sign-out"></i> تسجيل خروج
+        </li>
+      </ul>
+    </p-panel>
+  </div>
+
+  <!-- Main Content -->
+  <div class="p-col-12 p-md-9 main-content">
+    <p-panel header="Account Information " class="account-info">
+      <div class="p-field">
+        <strong>Contact Information </strong>
+        <br />
+        <p>{{ userName() }}</p>
+        <p>{{ user()?.email }}</p>
+        <p>{{ user()?.phone }}</p>
+        <p>
+          <a class="edit-btn" (click)="edit()"> Edit </a>
+          <a class="edit-btn" href="#"> Change Password</a>
+        </p>
+      </div>
+    </p-panel>
+
+    <p-panel
+      header="Address Book
+    "
+      class="address-info"
+    >
+      <div>
+        <p>
+          <strong>Default Shipping Address </strong>
+        </p>
+        <br />
+        @for (item of user()?.addresses; track $index) {
+        <p>{{ item.firstName + " " + item.lastName }}</p>
+        <p>Phone: {{ item.phone }}</p>
+        <p>Second Phone Number: {{ item.secondPhone }}</p>
+        <p>City: {{ item.governorate }}</p>
+        <p>Region: {{ item.region }}</p>
+        <p>Street: {{ item.street }}</p>
+        <p>Building No: {{ item.buildingNo }}</p>
+        <p>Floor: {{ item.floor }}</p>
+        <p>Landmark: {{ item.landmark }}</p>
+        }
+        <br />
+        <a class="edit-btn" (click)="editAddress()"> Edit </a>
+      </div>
+    </p-panel>
+  </div>
+</div>

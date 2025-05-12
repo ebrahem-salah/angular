@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { MenubarComponent } from '../shared/menubar/menubar.component';
-import { BannerComponent } from '../../ui/banner/banner.component';
 import { FooterComponent } from '../shared/footer/footer.component';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { MenubarModule } from 'primeng/menubar';
 
 @Component({

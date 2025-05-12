@@ -54,16 +54,12 @@ export class AdminUsersComponent {
   currentId = signal('');
   isSubmatted = false;
   user = signal<User[]>([]);
-  imageDisplay = signal<string | ArrayBuffer | null>('');
   get Control() {
     return this.form.controls;
   }
+
   form = new FormGroup({
     name: new FormControl('', {
-      validators: Validators.required,
-      nonNullable: true,
-    }),
-    phone: new FormControl('', {
       validators: Validators.required,
       nonNullable: true,
     }),
@@ -90,8 +86,8 @@ export class AdminUsersComponent {
             this.currentId.set(params['id']);
             this.Control.role.setValue(id.role);
             this.Control.active.setValue(id.active);
-            this.Control.name.setValue(id.name);
-            this.Control.phone.setValue(id.phone);
+            this.Control.name.setValue(id.firstName);
+            this.Control.name.setValue(id.lastName);
           },
 
           error: () => {
@@ -106,30 +102,29 @@ export class AdminUsersComponent {
 
   onSubmit() {
     this.isSubmatted = true;
-    const productFormData = new FormData();
-    if (this.editMode()) {
-      this.update(productFormData);
-    }
+    const FormData = this.form.value;
+    this.update(FormData as User);
   }
 
-  private update(productFormData: FormData) {
+  private update(FormData: User) {
     const _id = this.currentId();
+
     const subscription = this.usersService
-      .update(_id as string, productFormData as unknown as User)
+      .update(_id as string, FormData as User)
       .subscribe({
         next: () => {
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
-            detail: 'Product is updated ',
+            detail: 'User is updated ',
           });
-          this.router.navigate(['admin/products']);
+          this.router.navigate(['admin/users']);
         },
         error: () => {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
-            detail: 'Product is not updated',
+            detail: 'User is not updated',
           });
         },
       });

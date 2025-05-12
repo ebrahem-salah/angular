@@ -6,16 +6,14 @@ import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
   authInterceptor,
-  refreshTokenInterceptor,
+  // refreshTokenInterceptor,
 } from './service/jwt.interceptor';
 import { IMAGE_CONFIG } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideHttpClient(
-      withInterceptors([authInterceptor, refreshTokenInterceptor])
-    ),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimationsAsync(),
     {
       provide: IMAGE_CONFIG,

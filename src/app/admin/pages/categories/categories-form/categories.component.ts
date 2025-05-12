@@ -60,10 +60,6 @@ export class AdminCategoriesComponent {
       nonNullable: true,
     }),
   });
-  category = {
-    name: this.categoryControl.name.value,
-    image: this.categoryControl.image.value,
-  };
 
   ngOnInit(): void {
     this.getCategoryId();
@@ -92,7 +88,6 @@ export class AdminCategoriesComponent {
     this.destroyRef.onDestroy(() => subscription.unsubscribe());
   }
   onFileSelected(event: any) {
-    console.log(event);
     const file = event.target.files[0];
     if (file) {
       this.form.patchValue({ image: file });

@@ -5,7 +5,7 @@ import {
   Category,
   PaginationResult,
 } from '../models/category.models';
-import { Observable, tap } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { SubCategories, SubCategory } from '../models/subcategory.models';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class CategoriesService {
 
   url = '/category';
 
-  getAll(categoryId?: string): Observable<Categories> {
+  getAll(): Observable<Categories> {
     return this.apiService.getAllData<Categories>(`${this.url}`).pipe(
       tap((data) => {
         this.category.set(data.data);
@@ -28,15 +28,15 @@ export class CategoriesService {
 
   getSubCategory(categoryId?: string): Observable<SubCategories> {
     if (categoryId) {
-      return this.apiService.getAllData<SubCategories>(
-        `${this.url}/${categoryId}/subcategory`
-      ).pipe(
-        tap((data) => {
-          this.subCategory.set(data.data);
-        })
-      );
+      return this.apiService
+        .getAllData<SubCategories>(`${this.url}/${categoryId}/subcategory`)
+        .pipe(
+          tap((data) => {
+            this.subCategory.set(data.data);
+          })
+        );
     }
-    return this.apiService.getAllData<SubCategories>(`${this.url}`);
+    return of()
   }
   add(category: Category): Observable<Category> {
     return this.apiService.addNewData<Category>(this.url, category);

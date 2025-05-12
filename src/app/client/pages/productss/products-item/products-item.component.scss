@@ -1,69 +1,198 @@
-.product-item {
-  align-items: center;
-  justify-content: center;
+// .product-item {
+//   align-items: center;
+//   justify-content: center;
 
-  &-wrapper {
-    background-color: white;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    flex-direction: column;
-    min-height: 250px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    height: 350px;
-    cursor: pointer;
+//   &-wrapper {
+//     background-color: white;
+//     border-radius: 15px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     flex-direction: column;
+//     flex-direction: column;
+//     min-height: 250px;
+//     margin-top: 15px;
+//     margin-bottom: 15px;
+//     height: 350px;
+//     cursor: pointer;
+//   }
+// }
+// .cursor{
+//   cursor: pointer;
+// }
+// .price {
+//   color: blue;
+//   font-size: 1.3em;
+// }
+// .discount {
+//   color: rgb(80, 81, 81);
+// }
+// .image {
+//   border-radius: 5px;
+// }
+
+// .product-price {
+//   display: flex;
+//   align-items: center;
+//   gap: 8px;
+// }
+
+// .original-price {
+//   font-size: 14px;
+//   color: #888;
+// }
+
+// .discounted-price {
+//   font-size: 16px;
+//   font-weight: bold;
+//   color: #e53935;
+// }
+
+// .product-card {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   height: 100%;
+//   padding: 1rem;
+//   border: 1px solid #ccc;
+//   border-radius: 8px;
+//   background-color: #fff;
+// }
+
+// .product-card .details {
+//   flex-grow: 1;
+// }
+
+// .product-card .price {
+//   margin-top: auto;
+// }
+
+// colors
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$background-color: #f8f9fa;
+$text-color: #212529;
+$discount-color: #dc3545;
+
+// mixins
+@mixin hover-effect {
+  transition: all 0.3s ease;
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 }
-.cursor{
-  cursor: pointer;
-}
-.price {
-  color: blue;
-  font-size: 1.3em;
-}
-.discount {
-  color: rgb(80, 81, 81);
-}
-.image {
-  border-radius: 5px;
+
+@mixin button-effect {
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: darken($primary-color, 10%);
+    color: white;
+  }
 }
 
-.product-price {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.original-price {
-  font-size: 14px;
-  color: #888;
-}
-
-.discounted-price {
-  font-size: 16px;
-  font-weight: bold;
-  color: #e53935;
-}
-
+// general styles
 .product-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  padding: 1rem;
-  border: 1px solid #ccc;
+  background-color: $background-color;
   border-radius: 8px;
-  background-color: #fff;
+  overflow: hidden;
+  @include hover-effect;
+
+  .image-container {
+    position: relative;
+    overflow: hidden;
+    img {
+      transition: transform 0.3s ease;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .product-details {
+    padding: 16px;
+    .title {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: $text-color;
+      margin-bottom: 8px;
+    }
+
+    .category {
+      font-size: 0.875rem;
+      color: $secondary-color;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: $text-color;
+      margin-bottom: 16px;
+
+      .original-price {
+        text-decoration: line-through;
+        color: $secondary-color;
+        margin-right: 8px;
+      }
+
+      .discounted-price {
+        color: $discount-color;
+      }
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+      .star {
+        color: #ffc107;
+        margin-right: 4px;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      gap: 8px;
+      .btn {
+        @include button-effect;
+        flex: 1;
+        text-align: center;
+        padding: 8px 16px;
+        border-radius: 4px;
+        background-color: $primary-color;
+        color: white;
+        border: none;
+        cursor: pointer;
+
+        &.outlined {
+          background-color: transparent;
+          border: 1px solid $primary-color;
+          color: $primary-color;
+        }
+      }
+    }
+  }
 }
 
-.product-card .details {
-  flex-grow: 1;
-}
+// responsive design
+@media (max-width: 768px) {
+  .product-card {
+    .product-details {
+      .title {
+        font-size: 1rem;
+      }
 
-.product-card .price {
-  margin-top: auto;
-}
+      .price {
+        font-size: 1.25rem;
+      }
 
+      .buttons {
+        flex-direction: column;
+        .btn {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

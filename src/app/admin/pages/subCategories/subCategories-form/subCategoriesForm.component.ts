@@ -65,16 +65,17 @@ export class AdminSubCategoriesComponent {
       validators: Validators.required,
       nonNullable: true,
     }),
-    category: new FormControl<Category | null>(null, {
+    image: new FormControl('', {
+      validators: Validators.required,
+      nonNullable: true,
+    }),
+
+    category: new FormControl('', {
       validators: Validators.required,
       nonNullable: true,
     }),
   });
 
-  subCategories = {
-    name: this.subCategoryControl.name.value,
-    category: this.subCategoryControl.category.value?._id, // إرسال ID فقط
-  };
 
   ngOnInit(): void {
     this.getSubCategoryId();
@@ -90,10 +91,10 @@ export class AdminSubCategoriesComponent {
           .subscribe({
             next: (id) => {
               this.subCategoryControl.name.setValue(id.name);
-              this.subCategoryControl.category.setValue(
-                id.category.name as unknown as Category
-              ); // إرسال الكائن
+              this.subCategoryControl.category.setValue(id.category.name); // إرسال الكائن
               this.curentSubCategoryId.set(params['id']);
+              this.imageDisplay.set(id.image);
+              this.subCategoryControl.image.setValue(id.image);
             },
             error: (error) => {
               console.error('Error fetching category:', error);
@@ -116,24 +117,41 @@ export class AdminSubCategoriesComponent {
     this.destroyRef.onDestroy(() => subscription.unsubscribe());
   }
 
+  onFileSelected(event: any) {
+    console.log(event);
+    const file = event.target.files[0];
+    if (file) {
+      this.form.patchValue({ image: file });
+      this.form.get('image')?.updateValueAndValidity;
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        this.imageDisplay.set(fileReader.result);
+      };
+      fileReader.readAsDataURL(file);
+    }
+  }
   onSubmit() {
     this.isSubmatted = true;
 
-    const subCategories = {
-      name: this.subCategoryControl.name.value,
-      category: this.subCategoryControl.category.value,
-    };
+    const subCategoriesData = new FormData();
+    Object.keys(this.subCategoryControl).map((key) => {
+      subCategoriesData.append(
+        key,
+        this.subCategoryControl[key as keyof typeof this.subCategoryControl]
+          .value
+      );
+    });
 
     if (this.editMode()) {
-      this.updateSubCategory(subCategories as SubCategory);
+      this.updateSubCategory(subCategoriesData);
     } else {
-      this.createSubCategory(subCategories as SubCategory);
+      this.createSubCategory(subCategoriesData);
     }
   }
-  updateSubCategory(categoryData: SubCategory) {
+  updateSubCategory(categoryData: FormData) {
     const _id = this.curentSubCategoryId();
     const subscription = this.subCategoryService
-      .update(_id as string, categoryData)
+      .update(_id as string, categoryData as unknown as SubCategory)
       .subscribe({
         next: (data) => {
           console.log(data);
@@ -156,7 +174,7 @@ export class AdminSubCategoriesComponent {
       });
   }
 
-  createSubCategory(categoryData: SubCategory) {
+  createSubCategory(categoryData: FormData) {
     const subscription = this.subCategoryService
       .add(categoryData as unknown as SubCategory)
       .subscribe({

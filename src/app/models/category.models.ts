@@ -11,7 +11,6 @@ export interface Category {
   image: string;
   checked: boolean;
   subcategories?: SubCategory[]; // إضافة الـ SubCategories
-
 }
 
 export interface PaginationResult {

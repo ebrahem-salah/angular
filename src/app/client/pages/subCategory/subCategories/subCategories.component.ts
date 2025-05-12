@@ -34,32 +34,17 @@ export class SubCategoriesComponent implements OnInit {
   private subCategoryService = inject(SubCategoriesService);
   private productService = inject(ProductsService);
 
-  products = this.productService.products;
+  products = this.productService.product;
 
   Products(id: string) {
     this.subCategoryService.getProductsBySubCategory(id).subscribe({
       next: (data) => {
-        this.products.update(() => data.data);
+        this.products.set(data.data);
       },
     });
   }
-  // @Input() subcategoryss!: SubCategory[];
   subcategory = input<SubCategory[]>();
   ngOnInit() {
-    // this.getCategories();
   }
 
-  // category: Category[] = [];
-
-  // getCategories() {
-  //   this.categoryService.getAll().subscribe((data) => {
-  //     this.category = data.data;
-  //   });
-  // }
-  // categoryFilter() {
-  //   const selectedCategory = this.category
-  //     .filter((category) => category.checked)
-  //     .map((category) => category._id);
-  //   console.log(selectedCategory);
-  // }
 }

@@ -9,6 +9,7 @@ export interface SubCategories {
 export interface SubCategory {
   _id: string;
   name: string;
+  image: string;
   category: Category;
 }
 

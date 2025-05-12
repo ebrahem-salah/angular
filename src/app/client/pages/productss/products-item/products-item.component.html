@@ -43,12 +43,13 @@
     </div>
   </div>
 </div> -->
+
 <div class="grid grid-nogutter justify-content-center">
   <div>
     <div class="col-12 sm:col-6 md:col-4 xl:col-6 p-2">
       <div
         class="p-2 border-1 surface-border surface-card border-round flex flex-column"
-        style="min-height: 410px; transition: transform 0.3s; cursor: pointer"
+        style="min-height: 410px; transition: transform 0.3s"
         (mouseenter)="hover = true"
         (mouseleave)="hover = false"
         [ngStyle]="{ transform: hover ? 'scale(1.05)' : 'scale(1)' }"
@@ -63,7 +64,7 @@
               class="border-round w-full"
               [src]="product()?.imageCover"
               alt="Product Image"
-              style="max-width: 220px"
+              style="max-width: 220px; cursor: pointer"
               loading="lazy"
             />
           </div>
@@ -127,6 +128,7 @@
                 icon="pi pi-shopping-cart"
                 class="flex-auto md:flex-initial white-space-nowrap"
                 label="Add to cart"
+                (click)="addToCart()"
                 #disabled
                 [disabled]="(product()?.quantity ?? 0) <= 0"
               >

@@ -32,7 +32,6 @@ import { PaginatorModule } from 'primeng/paginator';
     TableModule,
     RouterLink,
     ToastModule,
-    CurrencyPipe,
     ConfirmDialogModule,
     DatePipe,
     ColorPickerModule,
@@ -69,15 +68,15 @@ export class AdminUsersListComponent {
         this.resulte.set(res.resulte);
       },
 
-      error: (err) => console.error(err.error.message),
+      error: (err) => console.error(err.message),
     });
     this.destroyRef.onDestroy(() => subscription.unsubscribe());
   }
 
   deleteUser(usersId: string) {
     this.confirmationService.confirm({
-      message: 'Do you want to delete this product ?',
-      header: 'Delete Product',
+      message: 'Do you want to delete this User ?',
+      header: 'Delete User',
       icon: 'pi pi-info-circle',
       acceptButtonStyleClass: 'p-button-danger p-button-text',
       rejectButtonStyleClass: 'p-button-text p-button-text',
@@ -87,15 +86,15 @@ export class AdminUsersListComponent {
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
-              detail: 'Product is deleted ',
+              detail: 'User is deleted ',
             });
             this.getAll();
           },
-          error: (error) => {
+          error: () => {
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
-              detail: 'Product not deleted',
+              detail: 'User not deleted',
             });
           },
         });

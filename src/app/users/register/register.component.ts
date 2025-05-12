@@ -1,3 +1,4 @@
+import { AuthService } from './../../service/auth.service';
 import { Component, inject, signal } from '@angular/core';
 import { User } from '../../models/users.models';
 import {
@@ -9,6 +10,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { UsersService } from '../../service/users.service';
 import { CommonModule } from '@angular/common';
+import { AuthResponseData } from '../../models/auth.model';
 
 @Component({
   selector: 'app-register',
@@ -19,14 +21,19 @@ import { CommonModule } from '@angular/common';
 })
 export class RegisterComponent {
   constructor(private fb: FormBuilder, private router: Router) {}
-  private usersService = inject(UsersService);
+  private authService = inject(AuthService);
 
   registerForm = this.fb.group(
     {
-      name: [
+      firstName: [
         '',
         [Validators.required], //Validators.pattern(/^[a-zA-Z]+(?:[a-zA-Z]+)*$/)
       ],
+      lastName: [
+        '',
+        [Validators.required], //Validators.pattern(/^[a-zA-Z]+(?:[a-zA-Z]+)*$/)
+      ],
+
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       passwordConfirm: ['', [Validators.required]],
@@ -39,8 +46,11 @@ export class RegisterComponent {
     //Add 'implements OnInit' to the class.
   }
 
-  get name() {
-    return this.registerForm.controls['name'];
+  get firstName() {
+    return this.registerForm.controls['firstName'];
+  }
+  get lastName() {
+    return this.registerForm.controls['lastName'];
   }
   get email() {
     return this.registerForm.controls['email'];
@@ -77,16 +87,15 @@ export class RegisterComponent {
     const url = '/auth/signup';
     const postData = { ...this.registerForm.value };
     // delete postData.passwordConfirm;
-    this.usersService.add(url, postData as User).subscribe({
-      next: (res: User) => {
-        alert('Registration successful');
+    this.authService.auth(url, postData as AuthResponseData).subscribe({
+      next: () => {
+        alert('Registration successfuly');
         this.registerr = false;
         this.router.navigate(['/users/login']);
         delete postData.passwordConfirm;
       },
       error: (err) => {
         console.log(err);
-        // this.error.set(errorMessage);
       },
     });
   }

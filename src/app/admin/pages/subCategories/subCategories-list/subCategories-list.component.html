@@ -27,8 +27,12 @@
                   <th pSortableColumn="name">
                     Name <p-sortIcon field="name" />
                   </th>
-                  <th pSortableColumn="name">
-                    Category <p-sortIcon field="name" />
+                  <th pSortableColumn="image">
+                    Image <p-sortIcon field="image" />
+                  </th>
+
+                  <th pSortableColumn="category">
+                    Category <p-sortIcon field="category" />
                   </th>
                   <th>Action</th>
                 </tr>
@@ -37,7 +41,16 @@
                 <tr>
                   <td>{{ subCategory.name }}</td>
                   <td>
-                    {{ subCategory.category[0].name }}
+                    <img
+                      [src]="subCategory.image"
+                      [alt]="subCategory.name"
+                      width="100"
+                      class="shadow-4"
+                    />
+                  </td>
+
+                  <td>
+                    {{ subCategory.category }}
                   </td>
                   <td>
                     <p-button

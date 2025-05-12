@@ -4,7 +4,7 @@ import { SubCategory } from './subcategory.models';
 
 export interface Products {
   data: Product[];
-  PaginationResult: PaginationResult[];
+  PaginationResult: PaginationResult;
   resulte: number;
 }
 
@@ -23,7 +23,7 @@ export interface Product {
   ratingsQuantity?: number;
   sold: number;
   quantity: number;
-  subcategory: SubCategory;
+  subCategory: SubCategory;
   updatedAt: string;
   colors: string[];
   brand: Brand;
@@ -36,6 +36,8 @@ export interface PaginationResult {
   currentPage: number;
   limit: number;
   numbersOfPages: number;
+  next: number;
+  prev: number;
 }
 
 export interface discount {

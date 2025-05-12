@@ -6,30 +6,33 @@ export interface Users {
 
 export interface User {
   id: string;
-  userName: string;
-  name: string;
+  firstName: string;
+  lastName: string;
+  slug: string;
   email: string;
   phone: string;
   profileImg: string;
-  password: string;
   passwordChangeAt: string;
   passwordResetExpires: string;
   passwordResetVerified: string;
   role: string;
-  addresses: addresses[];
-  refreshToken: string;
+  addresses: address[];
   active: string;
   wishList: string[];
   order: string[];
-  accessToken: string;
 }
-export interface addresses {
+export interface address {
   _id: string;
-  alias: string;
-  city: string;
-  address: string;
-  street: string;
+  firstName: string;
+  lastName: string;
   phone: string;
+  secondPhone: string;
+  governorate: string;
+  street: string;
+  region: string;
+  buildingNo: number;
+  floor: number;
+  landmark: string;
 }
 export interface PaginationResult {
   currentPage: number;

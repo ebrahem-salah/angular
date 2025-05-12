@@ -1,3 +1,5 @@
+<p-toast position="top-center" />
+
 <div class="cart-page">
   <div class="flex justify-content-center">
     @if (!cartItems().length) {
@@ -17,7 +19,7 @@
           <p-card header="My Cart ">
             <div class="cart-item">
               <p-table [value]="cartItems()">
-                <ng-template pTemplate="header" let-columns>
+                <ng-template pTemplate="header">
                   <tr>
                     <th>Item</th>
                     <th></th>
@@ -43,15 +45,16 @@
                       >
                     </td>
 
-                    @if (product.availableQuantity <= 0) {
-                    <div class="alert alert-danger" role="alert">
-                      {{ product.name }} not avabile
-                    </div>
-                    }@else {
-                    {{
-                      product.price | currency : "EGP"
-                    }}
-                    <td></td>
+                    <td>
+                      @if (product.availableQuantity <= 0) {
+                      <div class="alert alert-danger" role="alert">
+                        {{ product.name }} not avabile
+                      </div>
+                      }@else {
+                      {{ product.price | currency : "EGP" }}
+
+                      }
+                    </td>
 
                     <td>
                       <p-inputNumber
@@ -69,7 +72,6 @@
                     <td>
                       {{ product.price * product.quantity | currency : "EGP" }}
                     </td>
-                    }
                   </tr>
                 </ng-template>
               </p-table>
@@ -77,17 +79,68 @@
           </p-card>
         </div>
 
-        <div class="col-4">
+        <!-- <div class="col-4">
           <p-card header="Order Summary">
             <span class="border-top"></span>
             <div class="cart-total">
-              <h3 class="mb-3">Subtotal: {{ totalPrice() | currency }}</h3>
+              <h3 class="mb-3">Subtotal: {{ total() | currency }}</h3>
               <h3 class="mb-3">Shipping:</h3>
               <h3 class="mb-3">
                 Order Total: {{ totalPriceAfterDisc() | currency }}
               </h3>
             </div>
-            <button type="button" (click)="navgiteToCheckOut(orderId() ?? '')">
+            <button type="button" (click)="navigateToCheckOut()">
+              Check Out
+            </button>
+          </p-card>
+        </div> -->
+        <div class="col-4">
+          <p-card header="Order Summary">
+            <span class="border-top"></span>
+
+            <div class="cart-total">
+              <h3 class="mb-3">
+                Subtotal: <strong>{{ totalPrice() | currency : "EGP" }}</strong>
+              </h3>
+
+              <!-- ✅ إدخال الكوبون -->
+              <div class="mb-3">
+                <label for="coupon">Coupon Code:</label>
+                <input
+                  type="text"
+                  id="name"
+                  #couponCode
+                  class="form-control"
+                  placeholder="Enter coupon code"
+                />
+                <button
+                  class="btn btn-primary mt-2"
+                  (click)="applyCoupon(couponCode.value)"
+                >
+                  Apply Coupon
+                </button>
+              </div>
+
+              <!-- ✅ عرض مبلغ الخصم عند تطبيق الكوبون -->
+              <h3 class="mb-3 text-success" *ngIf="discountApplied() > 0">
+                Discount:
+                <strong> - {{ discountApplied() | currency : "EGP" }}</strong>
+              </h3>
+
+              <h3 class="mb-3">
+                Order Total: @if (totalPriceAfterDisc()) {
+                <strong>{{ totalPriceAfterDisc() | currency : "EGP" }}</strong>
+                }@else {
+                <strong>{{ totalPrice() | currency : "EGP" }}</strong>
+                }
+              </h3>
+            </div>
+
+            <button
+              type="button"
+              class="btn btn-success w-100"
+              (click)="navigateToCheckOut()"
+            >
               Check Out
             </button>
           </p-card>
