@@ -20,7 +20,6 @@ export class ProductsService {
   private http = inject(HttpClient);
   private readonly URL = environment.Url;
 
-  
   // import { rxResource } from '@angular/core/rxjs-interop';
 
   // getAllData = rxResource({

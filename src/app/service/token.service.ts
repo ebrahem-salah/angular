@@ -211,6 +211,7 @@ export class TokenService {
   }
 
   getAccessToken(): string | null {
+    console.log(localStorage.getItem('jwt'));
     return localStorage.getItem('jwt'); // يمكن تعديلها حسب مكان تخزين التوكن
   }
 
@@ -227,11 +228,10 @@ export class TokenService {
   // تحديث التوكن
   refreshTokens(): Observable<RefreshResponseData> {
     const refreshToken = this.getCookie('refreshToken');
-    if (!refreshToken && !this.isTokenExpired(refreshToken as string)) {
+    if (!refreshToken || this.isTokenExpired(refreshToken)) {
       this.redirectToLogin();
-      return throwError(() => new Error('Invalid or expired refresh token. '));
+      return throwError(() => new Error('Invalid or expired refresh token.'));
     }
-
     return this.http
       .post<RefreshResponseData>(
         this.refreshTokenUrl,
